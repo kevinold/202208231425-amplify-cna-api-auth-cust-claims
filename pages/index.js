@@ -29,8 +29,8 @@ async function onCreate(user) {
     query: createTodo,
     variables: {
       input: {
-        title: `New title ${Date.now()} ${user.username}}`,
-        content: "",
+        name: `New name ${user.username}`,
+        description: `${Date.now()}`,
       },
     },
   });
@@ -55,13 +55,14 @@ async function onQuery(setTodos) {
   setTodos(data.listTodos.items);
 }
 
-async function onUpdate(currentItem) {
+async function onUpdate(currentItem, user) {
   await API.graphql({
     query: updateTodo,
     variables: {
       input: {
         id: currentItem.id,
-        title: `Updated title ${getRandomInt(1, 20)} ${Date.now()}`,
+        name: `Updated name ${Date.now()}`,
+        description: currentItem.description.concat(`${user.username} - ${Date.now()}\n`),
       },
     },
   });
@@ -80,7 +81,9 @@ function App() {
         <View padding="1rem">
           <Flex direction="column">
             <Flex>
-              <Button onClick={() => onCreate(user)}>New Record</Button>
+              <Button onClick={() => onCreate(user).then(() => onQuery(setTodos))}>
+                New Record
+              </Button>
               <Button onClick={() => onQuery(setTodos)}>Refresh Data</Button>
               <Button onClick={signOut}>Signout</Button>
             </Flex>
@@ -89,8 +92,8 @@ function App() {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell>Title</TableCell>
-                  <TableCell>Content</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Description</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -98,11 +101,15 @@ function App() {
                 {todos.map((todo) => (
                   <TableRow key={todo.id}>
                     <TableCell>{todo.id}</TableCell>
-                    <TableCell>{todo.title}</TableCell>
-                    <TableCell>{todo.content}</TableCell>
+                    <TableCell>{todo.name}</TableCell>
+                    <TableCell>{todo.description}</TableCell>
                     <TableCell>
-                      <Button onClick={() => onUpdate(todo)}>Update Title and Rating</Button>
-                      <Button onClick={() => onDelete(todo.id)}>Delete Item</Button>
+                      <Button onClick={() => onUpdate(todo, user).then(() => onQuery(setTodos))}>
+                        Update
+                      </Button>
+                      <Button onClick={() => onDelete(todo.id).then(() => onQuery(setTodos))}>
+                        Delete
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
