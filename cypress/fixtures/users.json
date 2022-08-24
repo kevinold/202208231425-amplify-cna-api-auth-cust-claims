@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "username": "primary",
+      "email": "kevold+primary@amazon.com"
+    },
+    {
+      "username": "secondary",
+      "email": "kevold+secondary@amazon.com"
+    }
+  ]
+}
