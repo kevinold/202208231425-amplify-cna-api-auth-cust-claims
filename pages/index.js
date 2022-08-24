@@ -30,7 +30,7 @@ async function onCreate(user) {
     variables: {
       input: {
         name: `New name ${user.username}`,
-        description: `${Date.now()}`,
+        description: `${user.username} - ${Date()}\n`,
       },
     },
   });
@@ -62,7 +62,7 @@ async function onUpdate(currentItem, user) {
       input: {
         id: currentItem.id,
         name: `Updated name ${Date.now()}`,
-        description: currentItem.description.concat(`${user.username} - ${Date.now()}\n`),
+        description: currentItem.description.concat(`${user.username} - ${Date()}\n`),
       },
     },
   });
@@ -115,6 +115,12 @@ function App() {
                 ))}
               </TableBody>
             </Table>
+
+            {user && (
+              <code>
+                <pre>{JSON.stringify(user, null, 2)}</pre>
+              </code>
+            )}
           </Flex>
         </View>
       )}
