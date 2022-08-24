@@ -10,19 +10,28 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { Amplify, API } from "aws-amplify";
+import { Amplify, API, Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { createTodo, deleteTodo, updateTodo } from "../src/graphql/mutations";
 import { listTodos } from "../src/graphql/queries";
 
 import awsconfig from "../src/aws-exports";
-Amplify.configure(awsconfig);
+Amplify.configure({
+  API: {
+    graphql_headers: async () => ({
+      Authorization: (await Auth.currentSession()).getIdToken().getJwtToken(),
+    }),
+  },
+  ...awsconfig,
+});
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+const group = "kevinold@gmail.com-group";
 
 async function onCreate(user) {
   await API.graphql({
@@ -31,6 +40,7 @@ async function onCreate(user) {
       input: {
         name: `New name ${user.username}`,
         description: `${user.username} - ${Date()}\n`,
+        group,
       },
     },
   });
