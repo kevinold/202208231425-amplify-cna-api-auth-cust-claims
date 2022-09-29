@@ -1,8 +1,10 @@
-const { defineConfig } = require("cypress");
+import { defineConfig } from "cypress";
+import awsConfig from "./src/aws-exports.mjs";
 
-module.exports = defineConfig({
+export default defineConfig({
   env: {
     testUserPassword: process.env.TEST_USER_PASSWORD,
+    appSyncGraphQLEndpoint: awsConfig["aws_appsync_graphqlEndpoint"],
   },
   component: {
     devServer: {
