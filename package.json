@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "cy:open": "cypress open --e2e",
     "build:aws-exports-mjs": "cp src/aws-exports.js src/aws-exports.mjs",
     "pretest:provisionCognitoUsers": "npm run build:aws-exports-mjs",
     "test:provisionCognitoUsers": "node --experimental-json-modules scripts/provisionCognitoUsers.mjs"
