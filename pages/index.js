@@ -6,6 +6,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Text,
   View,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
@@ -88,19 +89,24 @@ function App({ signOut, user }) {
   return (
     <View padding="1rem">
       <Flex direction="column">
-        <Flex>
-          <Button
-            data-test="create-todo"
-            onClick={() => onCreate(user).then(() => onQuery(setTodos))}
-          >
-            Create Todo
-          </Button>
-          <Button data-test="refresh-data" onClick={() => onQuery(setTodos)}>
-            Refresh Data
-          </Button>
-          <Button data-test="signout" onClick={signOut}>
-            Signout
-          </Button>
+        <Flex justifyContent={"space-between"}>
+          <Flex>
+            <Button
+              data-test="create-todo"
+              onClick={() => onCreate(user).then(() => onQuery(setTodos))}
+            >
+              Create Todo
+            </Button>
+            <Button data-test="refresh-data" onClick={() => onQuery(setTodos)}>
+              Refresh Data
+            </Button>
+          </Flex>
+          <Flex justifyContent={"flex-end"}>
+            <Text data-test="user-email">{user.attributes.email}</Text>
+            <Button data-test="signout" onClick={signOut}>
+              Signout
+            </Button>
+          </Flex>
         </Flex>
 
         <Table>
@@ -137,11 +143,11 @@ function App({ signOut, user }) {
           </TableBody>
         </Table>
 
-        {user && (
+        {/*user && (
           <code>
             <pre data-test="user-info">{JSON.stringify(user, null, 2)}</pre>
           </code>
-        )}
+        )*/}
       </Flex>
     </View>
   );

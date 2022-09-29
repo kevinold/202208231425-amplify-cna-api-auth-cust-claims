@@ -28,7 +28,7 @@ describe("shared todos functionality", () => {
   it("displays user information", () => {
     cy.wait("@gqlListTodosQuery");
 
-    cy.getBySel("user-info").should("contain", ctx.primaryUser.email);
+    cy.getBySel("user-email").should("have.text", ctx.primaryUser.email);
   });
 });
 
