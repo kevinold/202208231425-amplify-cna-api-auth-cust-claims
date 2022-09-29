@@ -58,3 +58,4 @@ amplifytools.xcconfig
 
 cypress/videos
 cypress/screenshots
+/src/aws-exports.mjs
