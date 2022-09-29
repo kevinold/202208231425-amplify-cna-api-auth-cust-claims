@@ -1,11 +1,17 @@
 /// <reference types="cypress" />
 
 describe("shared todos functionality", () => {
-  beforeEach(() => {
+  let ctx = {};
+  before(() => {
     cy.fixture("users").then((usersJson) => {
-      cy.loginWithCognitoUI(usersJson[0].username, Cypress.env("testPassword"));
-      cy.visit("/");
+      ctx.primaryUser = usersJson[0];
+      ctx.secondaryUser = usersJson[1];
     });
+  });
+
+  beforeEach(() => {
+    cy.loginWithCognitoUI(primaryUser.username, Cypress.env("testPassword"));
+    cy.visit("/");
 
     cy.intercept("POST", Cypress.env("AppSyncGraphQLEndpoint"), (req) => {
       if (req.body.hasOwnProperty("query") && req.body.query.includes("query ListTodos")) {
@@ -19,6 +25,12 @@ describe("shared todos functionality", () => {
     cy.visit("/");
   });
 
+  it("displays user information", () => {
+    cy.getBySel("user-info").should("have.text", ctx.primaryUser.username);
+  });
+});
+
+/*
   it("displays the home page", () => {
     cy.getBySel("nav-dashboard").should("be.visible");
 
@@ -38,3 +50,5 @@ describe("shared todos functionality", () => {
     cy.getBySelLike("post-").should("have.length", 2);
   });
 });
+
+*/
