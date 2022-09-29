@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 // ***********************************************************
 // This example support/e2e.js is processed and
 // loaded automatically before your test files.
@@ -16,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import "./amplify-commands";
 import "./commands";
 
 // Alternatively you can use CommonJS syntax:
