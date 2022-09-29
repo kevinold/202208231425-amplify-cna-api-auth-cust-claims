@@ -10,10 +10,10 @@ describe("shared todos functionality", () => {
   });
 
   beforeEach(() => {
-    cy.loginWithCognitoUI(primaryUser.username, Cypress.env("testPassword"));
+    cy.loginWithCognitoUI(ctx.primaryUser.email, Cypress.env("testUserPassword"));
     cy.visit("/");
 
-    cy.intercept("POST", Cypress.env("AppSyncGraphQLEndpoint"), (req) => {
+    cy.intercept("POST", Cypress.env("appSyncGraphQLEndpoint"), (req) => {
       if (req.body.hasOwnProperty("query") && req.body.query.includes("query ListTodos")) {
         req.alias = "gqlListTodosQuery";
       }
@@ -26,7 +26,9 @@ describe("shared todos functionality", () => {
   });
 
   it("displays user information", () => {
-    cy.getBySel("user-info").should("have.text", ctx.primaryUser.username);
+    cy.wait("@gqlListTodosQuery");
+
+    cy.getBySel("user-info").should("contain", ctx.primaryUser.email);
   });
 });
 
