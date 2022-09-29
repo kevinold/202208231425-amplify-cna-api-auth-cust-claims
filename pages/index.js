@@ -1,5 +1,4 @@
 import {
-  Authenticator,
   Button,
   Flex,
   Table,
@@ -8,6 +7,7 @@ import {
   TableHead,
   TableRow,
   View,
+  withAuthenticator,
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Amplify, API, Auth } from "aws-amplify";
@@ -78,7 +78,7 @@ async function onUpdate(currentItem, user) {
   });
 }
 
-function App() {
+function App({ signOut, user }) {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -86,56 +86,65 @@ function App() {
   }, []);
 
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <View padding="1rem">
-          <Flex direction="column">
-            <Flex>
-              <Button onClick={() => onCreate(user).then(() => onQuery(setTodos))}>
-                New Record
-              </Button>
-              <Button onClick={() => onQuery(setTodos)}>Refresh Data</Button>
-              <Button onClick={signOut}>Signout</Button>
-            </Flex>
+    <View padding="1rem">
+      <Flex direction="column">
+        <Flex>
+          <Button
+            data-test="create-todo"
+            onClick={() => onCreate(user).then(() => onQuery(setTodos))}
+          >
+            Create Todo
+          </Button>
+          <Button data-test="refresh-data" onClick={() => onQuery(setTodos)}>
+            Refresh Data
+          </Button>
+          <Button data-test="signout" onClick={signOut}>
+            Signout
+          </Button>
+        </Flex>
 
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {todos.map((todo) => (
-                  <TableRow key={todo.id}>
-                    <TableCell>{todo.id}</TableCell>
-                    <TableCell>{todo.name}</TableCell>
-                    <TableCell>{todo.description}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => onUpdate(todo, user).then(() => onQuery(setTodos))}>
-                        Update
-                      </Button>
-                      <Button onClick={() => onDelete(todo.id).then(() => onQuery(setTodos))}>
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {todos.map((todo) => (
+              <TableRow data-test="todo-list" key={todo.id}>
+                <TableCell data-test="todo-id">{todo.id}</TableCell>
+                <TableCell data-test="todo-name">{todo.name}</TableCell>
+                <TableCell data-test="todo-desc">{todo.description}</TableCell>
+                <TableCell>
+                  <Button
+                    data-test={`update-todo-${todo.id}`}
+                    onClick={() => onUpdate(todo, user).then(() => onQuery(setTodos))}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    data-test={`delete-todo-${todo.id}`}
+                    onClick={() => onDelete(todo.id).then(() => onQuery(setTodos))}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
 
-            {user && (
-              <code>
-                <pre>{JSON.stringify(user, null, 2)}</pre>
-              </code>
-            )}
-          </Flex>
-        </View>
-      )}
-    </Authenticator>
+        {user && (
+          <code>
+            <pre data-test="user-info">{JSON.stringify(user, null, 2)}</pre>
+          </code>
+        )}
+      </Flex>
+    </View>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
