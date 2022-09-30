@@ -32,7 +32,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const group = "kevinold@gmail.com-group";
+//const group = "kevinold@gmail.com-group";
 
 async function onCreate(user) {
   await API.graphql({
@@ -41,7 +41,7 @@ async function onCreate(user) {
       input: {
         name: `New name ${user.username}`,
         description: `${user.username} - ${Date()}\n`,
-        group,
+        //group,
       },
     },
   });
@@ -121,7 +121,7 @@ function App({ signOut, user }) {
           <TableBody>
             {todos.map((todo) => (
               <TableRow data-test="todo-list" key={todo.id}>
-                <TableCell data-test="todo-id">{todo.id}</TableCell>
+                <TableCell data-test={`todo-id-${todo.id}`}>{todo.id}</TableCell>
                 <TableCell data-test="todo-name">{todo.name}</TableCell>
                 <TableCell data-test="todo-desc">{todo.description}</TableCell>
                 <TableCell>

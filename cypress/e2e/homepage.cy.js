@@ -22,35 +22,15 @@ describe("shared todos functionality", () => {
         req.alias = "gqlCreateTodoMutation";
       }
     });
-    cy.visit("/");
+
+    cy.wait("@gqlListTodosQuery");
   });
 
   it("displays user information", () => {
-    cy.wait("@gqlListTodosQuery");
-
     cy.getBySel("user-email").should("have.text", ctx.primaryUser.email);
   });
-});
 
-/*
-  it("displays the home page", () => {
-    cy.getBySel("nav-dashboard").should("be.visible");
-
-    cy.getBySel("header-title").should("have.text", "Dashboard");
-
-    cy.getBySel("meal-list-loading").should("exist");
-
-    cy.wait("@gqlMealsByOwnerQuery");
-
-    cy.getBySel("meal-list-loading").should("not.exist");
-  });
-
-  it("should render posts using SSR", () => {
-    cy.visit("/");
-    cy.getBySel("posts-count").should("have.text", 2);
-
-    cy.getBySelLike("post-").should("have.length", 2);
+  it("should not have any records", () => {
+    cy.getBySelLike("todo-id-").should("not.exist");
   });
 });
-
-*/

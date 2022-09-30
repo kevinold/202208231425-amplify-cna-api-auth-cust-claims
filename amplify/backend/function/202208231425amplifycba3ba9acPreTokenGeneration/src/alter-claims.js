@@ -5,10 +5,10 @@ exports.handler = async (event) => {
   event.response = {
     claimsOverrideDetails: {
       groupOverrideDetails: {
-        groupsToOverride: ["kevinold@gmail.com-group"],
+        //groupsToOverride: ["kevinold@gmail.com-group"],
       },
       claimsToAddOrOverride: {
-        user_groups: "kevinold@gmail.com-group",
+        //user_groups: "kevinold@gmail.com-group",
       },
     },
   };

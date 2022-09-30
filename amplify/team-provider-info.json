@@ -19,8 +19,11 @@
       "function": {
         "202208231425amplifycba3ba9acPreTokenGeneration": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPreTokenGeneration-2f4a755a646241413250-build.zip"
+          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPreTokenGeneration-706f416d6b46616e3176-build.zip"
         }
+      },
+      "api": {
+        "202208231425amplifyc": {}
       }
     }
   }
