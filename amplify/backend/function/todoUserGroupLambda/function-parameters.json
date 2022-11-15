@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "auth": {
+      "202208231425amplifycba3ba9ac": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "api": {
+      "202208231425amplifyc": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

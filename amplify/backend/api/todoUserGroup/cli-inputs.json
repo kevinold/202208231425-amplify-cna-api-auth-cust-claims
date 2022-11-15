@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/todoUserGroup": {
+      "name": "/todoUserGroup",
+      "lambdaFunction": "todoUserGroupLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
