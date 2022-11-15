@@ -84,4 +84,4 @@
     "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreTokenGeneration\",\n    \"lambdaFunctionName\": \"202208231425amplifycba3ba9acPreTokenGeneration\"\n  }\n]",
     "permissions": []
   }
-}
+} 

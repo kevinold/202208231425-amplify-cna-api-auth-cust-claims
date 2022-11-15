@@ -1,18 +1,18 @@
+type TodoUserGroup @model @auth(rules: [{ allow: owner, ownerField: "owners" }]) {
+  id: ID!
+  name: String
+  owners: [String]
+  createdBy: String # Remember who created it for UI; less restricting than "owner"
+  inviteCode: String
+}
+
 type Todo
   @model
   @auth(
-    rules: [
-      { allow: owner }
-      {
-        allow: groups
-        groupsField: "group"
-        groupClaim: "user_groups"
-        operations: [create, read, update, delete]
-      }
-    ]
+    rules: [{ allow: owner }, { allow: groups, groupClaim: "todoUserGroup", groupsField: "group" }]
   ) {
   id: ID!
   name: String!
   description: String
-  group: String
+  group: String # Single group
 }
