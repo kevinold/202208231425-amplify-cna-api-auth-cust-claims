@@ -7,7 +7,9 @@ $util.qr($mergedValues.putAll($util.defaultIfNull($args.input, {})))
 ## set the typename **
 $util.qr($mergedValues.put("__typename", "Todo"))
 ## auto populate group with identity claim "todoUserGroup" **
-$util.qr($mergedValues.put("group", $ctx.identity.claims.get("todoUserGroup")))
+#if( $ctx.identity.claims.get("todoUserGroup"))
+  $util.qr($mergedValues.put("group", $ctx.identity.claims.get("todoUserGroup")))
+#end
 #set( $PutObject = {
   "version": "2018-05-29",
   "operation": "PutItem",

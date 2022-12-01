@@ -1,6 +1,54 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createTodoUserGroup = /* GraphQL */ `
+  mutation CreateTodoUserGroup(
+    $input: CreateTodoUserGroupInput!
+    $condition: ModelTodoUserGroupConditionInput
+  ) {
+    createTodoUserGroup(input: $input, condition: $condition) {
+      id
+      name
+      owners
+      createdBy
+      inviteCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTodoUserGroup = /* GraphQL */ `
+  mutation UpdateTodoUserGroup(
+    $input: UpdateTodoUserGroupInput!
+    $condition: ModelTodoUserGroupConditionInput
+  ) {
+    updateTodoUserGroup(input: $input, condition: $condition) {
+      id
+      name
+      owners
+      createdBy
+      inviteCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTodoUserGroup = /* GraphQL */ `
+  mutation DeleteTodoUserGroup(
+    $input: DeleteTodoUserGroupInput!
+    $condition: ModelTodoUserGroupConditionInput
+  ) {
+    deleteTodoUserGroup(input: $input, condition: $condition) {
+      id
+      name
+      owners
+      createdBy
+      inviteCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createTodo = /* GraphQL */ `
   mutation CreateTodo(
     $input: CreateTodoInput!
@@ -10,6 +58,7 @@ export const createTodo = /* GraphQL */ `
       id
       name
       description
+      group
       createdAt
       updatedAt
       owner
@@ -25,6 +74,7 @@ export const updateTodo = /* GraphQL */ `
       id
       name
       description
+      group
       createdAt
       updatedAt
       owner
@@ -40,6 +90,7 @@ export const deleteTodo = /* GraphQL */ `
       id
       name
       description
+      group
       createdAt
       updatedAt
       owner
