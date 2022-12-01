@@ -16,3 +16,9 @@ type Todo
   description: String
   group: String # Single group
 }
+
+type Mutation {
+  myCustomMutation(args: String): String
+    @function(name: "myCustomMutationFunc-${env}")
+    @auth(rules: [{ allow: private, provider: iam }])
+}

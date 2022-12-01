@@ -97,3 +97,8 @@ export const deleteTodo = /* GraphQL */ `
     }
   }
 `;
+export const myCustomMutation = /* GraphQL */ `
+  mutation MyCustomMutation($args: String) {
+    myCustomMutation(args: $args)
+  }
+`;

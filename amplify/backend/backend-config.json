@@ -58,7 +58,11 @@
               "userPoolId": "auth202208231425amplifycba3ba9ac"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
         }
       }
     },
@@ -84,6 +88,28 @@
       "service": "Lambda"
     },
     "todoUserGroupLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "202208231425amplifycba3ba9ac",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "api",
+          "resourceName": "202208231425amplifyc",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ]
+        }
+      ]
+    },
+    "myCustomMutationFunc": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

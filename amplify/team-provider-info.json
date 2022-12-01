@@ -25,6 +25,10 @@
         "todoUserGroupLambda": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
           "s3Key": "amplify-builds/todoUserGroupLambda-6d447263734a55357974-build.zip"
+        },
+        "myCustomMutationFunc": {
+          "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
+          "s3Key": "amplify-builds/myCustomMutationFunc-7879706a6c654b794c38-build.zip"
         }
       },
       "api": {
