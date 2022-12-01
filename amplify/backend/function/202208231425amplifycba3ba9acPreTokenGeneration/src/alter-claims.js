@@ -9,7 +9,7 @@ exports.handler = async (event) => {
         //groupsToOverride: ["kevinold@gmail.com-group"],
       },
       claimsToAddOrOverride: {
-        //user_groups: "kevinold@gmail.com-group",
+        //todoUserGroup: "kevinold@gmail.com-group",
       },
     },
   };
