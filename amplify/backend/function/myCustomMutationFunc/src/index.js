@@ -11,6 +11,7 @@ import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import { HttpRequest } from "@aws-sdk/protocol-http";
 import { SignatureV4 } from "@aws-sdk/signature-v4";
 import { default as fetch, Request } from "node-fetch";
+import { v4 as uuidv4 } from "uuid";
 
 const { Sha256 } = crypto;
 const GRAPHQL_ENDPOINT = process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT;
@@ -29,8 +30,8 @@ const query = /* GraphQL */ `
 `;
 
 const mutation = /* GraphQL */ `
-  mutation MY_CUSTOM_MUTATION($input) {
-    myCustomMutation(input: $input) {
+  mutation CreateTodoUserGroup($input) {
+    createTodoUserGroup(input: $input) {
       id
       name
       createdAt
@@ -47,7 +48,8 @@ export const handler = async (event, context) => {
 
   const variables = {
     input: {
-      args: "Kevin",
+      owners: [event.arguments.args],
+      inviteCode: uuidv4(),
     },
   };
 
