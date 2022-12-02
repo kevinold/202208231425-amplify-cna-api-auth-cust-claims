@@ -18,7 +18,8 @@ const myAppConfig = {
   aws_appsync_authenticationType: "AWS_IAM",
 };
 
-Amplify.configure(myAppConfig);
+Amplify.configure({ myAppConfig, ssr: true });
+//Auth.configure({ mandatorySignIn: false })
 
 const mutation = /* GraphQL */ `
   mutation CreateTodoUserGroup(
