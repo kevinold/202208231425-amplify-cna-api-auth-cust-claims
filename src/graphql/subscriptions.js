@@ -8,11 +8,11 @@ export const onCreateTodoUserGroup = /* GraphQL */ `
   ) {
     onCreateTodoUserGroup(filter: $filter, owner: $owner) {
       id
+      owner
       inviteCode
       joinedGroupId
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -23,11 +23,11 @@ export const onUpdateTodoUserGroup = /* GraphQL */ `
   ) {
     onUpdateTodoUserGroup(filter: $filter, owner: $owner) {
       id
+      owner
       inviteCode
       joinedGroupId
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -38,11 +38,11 @@ export const onDeleteTodoUserGroup = /* GraphQL */ `
   ) {
     onDeleteTodoUserGroup(filter: $filter, owner: $owner) {
       id
+      owner
       inviteCode
       joinedGroupId
       createdAt
       updatedAt
-      owner
     }
   }
 `;

@@ -5,11 +5,11 @@ export const getTodoUserGroup = /* GraphQL */ `
   query GetTodoUserGroup($id: ID!) {
     getTodoUserGroup(id: $id) {
       id
+      owner
       inviteCode
       joinedGroupId
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -22,11 +22,11 @@ export const listTodoUserGroups = /* GraphQL */ `
     listTodoUserGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        owner
         inviteCode
         joinedGroupId
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

@@ -1,6 +1,7 @@
 type TodoUserGroup @model @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
   id: ID!
-  inviteCode: String
+  owner: String!
+  inviteCode: ID!
   joinedGroupId: String
 }
 
