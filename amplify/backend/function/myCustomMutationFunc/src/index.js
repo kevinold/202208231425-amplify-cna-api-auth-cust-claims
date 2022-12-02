@@ -8,7 +8,6 @@ Amplify Params - DO NOT EDIT */
 
 import { Amplify, API } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
-import { createTodoUserGroup } from "../../../../../src/graphql/mutations";
 
 const GRAPHQL_ENDPOINT = process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT;
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
@@ -50,8 +49,9 @@ export const handler = async (event, context) => {
 
   try {
     response = await API.graphql({
-      query: createTodoUserGroup,
+      query: mutation,
       variables,
+      authMode: "AWS_IAM",
     });
     console.log("respose:", response);
   } catch (error) {
