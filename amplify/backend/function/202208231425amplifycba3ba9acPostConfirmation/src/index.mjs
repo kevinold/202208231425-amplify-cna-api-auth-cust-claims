@@ -22,48 +22,48 @@ const AWS_REGION = process.env.AWS_REGION || "us-east-1";
  * @returns {Promise<any>} The result of the query
  */
 async function queryApi(endpoint, query, variables) {
-    const signer = new SignatureV4({
-        credentials: defaultProvider(),
-        region: AWS_REGION,
-        service: "appsync",
-        sha256: Sha256,
-    });
-    const endpointUrl = new URL(endpoint);
-    const requestToBeSigned = new HttpRequest({
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            host: endpointUrl.host,
+  const signer = new SignatureV4({
+    credentials: defaultProvider(),
+    region: AWS_REGION,
+    service: "appsync",
+    sha256: Sha256,
+  });
+  const endpointUrl = new URL(endpoint);
+  const requestToBeSigned = new HttpRequest({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      host: endpointUrl.host,
+    },
+    hostname: endpointUrl.host,
+    body: JSON.stringify({ query, variables }),
+    path: endpointUrl.pathname,
+  });
+  const signed = await signer.sign(requestToBeSigned);
+  const request = new Request(endpointUrl, signed);
+  let statusCode = 200;
+  let body;
+  let response;
+  try {
+    response = await fetch(request);
+    body = await response.json();
+    if (body.errors) statusCode = 400;
+  } catch (error) {
+    statusCode = 500;
+    body = {
+      errors: [
+        {
+          message: error.message,
         },
-        hostname: endpointUrl.host,
-        body: JSON.stringify({ query, variables }),
-        path: endpointUrl.pathname,
-    });
-    const signed = await signer.sign(requestToBeSigned);
-    const request = new Request(endpointUrl, signed);
-    let statusCode = 200;
-    let body;
-    let response;
-    try {
-        response = await fetch(request);
-        body = await response.json();
-        if (body.errors)
-            statusCode = 400;
-    }
-    catch (error) {
-        statusCode = 500;
-        body = {
-            errors: [
-                {
-                    message: error.message,
-                },
-            ],
-        };
-    }
-    return {
-        statusCode,
-        body: JSON.stringify(body),
+      ],
     };
+  }
+
+  console.log("body", body);
+  return {
+    statusCode,
+    body: JSON.stringify(body),
+  };
 }
 const createTodoUserGroupMutation = `
   mutation CreateTodoUserGroup(
@@ -79,14 +79,14 @@ const createTodoUserGroupMutation = `
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 export const handler = async (event, context) => {
-    console.log(`EVENT: ${JSON.stringify(event)}`);
-    console.log(`context: ${JSON.stringify(context)}`);
-    const variables = {
-        input: {
-            inviteCode: "abc123",
-        },
-    };
-    const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
-    console.log("result", result);
-    return event;
+  console.log(`EVENT: ${JSON.stringify(event)}`);
+  console.log(`context: ${JSON.stringify(context)}`);
+  const variables = {
+    input: {
+      inviteCode: "abc123",
+    },
+  };
+  const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
+  console.log("result", result);
+  return event;
 };

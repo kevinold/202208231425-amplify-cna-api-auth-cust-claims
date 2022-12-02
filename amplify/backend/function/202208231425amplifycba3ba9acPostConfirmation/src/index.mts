@@ -67,6 +67,7 @@ async function queryApi(endpoint, query, variables) {
     };
   }
 
+  console.log("body", body);
   return {
     statusCode,
     body: JSON.stringify(body),
