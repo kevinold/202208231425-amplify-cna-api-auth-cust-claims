@@ -6,28 +6,20 @@
 	REGION
 Amplify Params - DO NOT EDIT */
 
-import crypto from "@aws-crypto/sha256-js";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
-import { HttpRequest } from "@aws-sdk/protocol-http";
-import { SignatureV4 } from "@aws-sdk/signature-v4";
-import { default as fetch, Request } from "node-fetch";
+import { Amplify, API } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
+import { createTodoUserGroup } from "../../../../../src/graphql/mutations";
 
-const { Sha256 } = crypto;
 const GRAPHQL_ENDPOINT = process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT;
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 
-const query = /* GraphQL */ `
-  query LIST_TODOS {
-    listTodos {
-      items {
-        id
-        name
-        description
-      }
-    }
-  }
-`;
+const myAppConfig = {
+  aws_appsync_graphqlEndpoint: GRAPHQL_ENDPOINT,
+  aws_appsync_region: AWS_REGION,
+  aws_appsync_authenticationType: "AWS_IAM",
+};
+
+Amplify.configure(myAppConfig);
 
 const mutation = /* GraphQL */ `
   mutation CreateTodoUserGroup(
@@ -49,46 +41,21 @@ export const handler = async (event, context) => {
 
   const variables = {
     input: {
-      owners: [event.arguments.args],
+      owner: "testuserid",
       inviteCode: uuidv4(),
     },
   };
 
-  const endpoint = new URL(GRAPHQL_ENDPOINT);
-
-  const signer = new SignatureV4({
-    credentials: defaultProvider(),
-    region: AWS_REGION,
-    service: "appsync",
-    sha256: Sha256,
-  });
-
-  const requestToBeSigned = new HttpRequest({
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      host: endpoint.host,
-    },
-    hostname: endpoint.host,
-    body: JSON.stringify({ query: mutation, variables }),
-    path: endpoint.pathname,
-  });
-
-  const signed = await signer.sign(requestToBeSigned);
-  const request = new Request(endpoint, signed);
-
-  let statusCode = 200;
-  let body;
   let response;
 
   try {
-    response = await fetch(request);
-    body = await response.json();
-    console.log("body:", body);
-    if (body.errors) statusCode = 400;
+    response = await API.graphql({
+      query: createTodoUserGroup,
+      variables,
+    });
+    console.log("respose:", response);
   } catch (error) {
-    statusCode = 500;
-    body = {
+    response = {
       errors: [
         {
           message: error.message,
@@ -97,5 +64,5 @@ export const handler = async (event, context) => {
     };
   }
 
-  return body.data.createTodoUserGroup.id;
+  return response.data.createTodoUserGroup.id;
 };

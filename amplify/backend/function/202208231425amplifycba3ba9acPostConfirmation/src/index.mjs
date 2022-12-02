@@ -10,7 +10,8 @@ import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import { HttpRequest } from "@aws-sdk/protocol-http";
 import { SignatureV4 } from "@aws-sdk/signature-v4";
 import { default as fetch, Request } from "node-fetch";
-import { uuidv4 } from "uuid";
+// @ts-ignore
+import { v4 as uuidv4 } from "uuid";
 const { Sha256 } = crypto;
 const GRAPHQL_ENDPOINT = process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT;
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
@@ -41,6 +42,7 @@ async function queryApi(endpoint, query, variables) {
         path: endpointUrl.pathname,
     });
     const signed = await signer.sign(requestToBeSigned);
+    // @ts-ignore
     const request = new Request(endpointUrl, signed);
     let statusCode = 200;
     let body;

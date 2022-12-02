@@ -10,7 +10,8 @@ import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import { HttpRequest } from "@aws-sdk/protocol-http";
 import { SignatureV4 } from "@aws-sdk/signature-v4";
 import { default as fetch, Request } from "node-fetch";
-import { uuidv4 } from "uuid";
+// @ts-ignore
+import { v4 as uuidv4 } from "uuid";
 
 const { Sha256 } = crypto;
 
@@ -47,6 +48,7 @@ async function queryApi(endpoint, query, variables) {
   });
 
   const signed = await signer.sign(requestToBeSigned);
+  // @ts-ignore
   const request = new Request(endpointUrl, signed);
 
   let statusCode = 200;

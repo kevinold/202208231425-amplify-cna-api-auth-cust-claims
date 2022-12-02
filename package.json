@@ -11,7 +11,7 @@
     "build:aws-exports-mjs": "cp src/aws-exports.js src/aws-exports.mjs",
     "pretest:provisionCognitoUsers": "npm run build:aws-exports-mjs",
     "test:provisionCognitoUsers": "node --experimental-json-modules scripts/provisionCognitoUsers.mjs",
-    "amplify:PostConf": "cd amplify/backend/function/202208231425amplifycba3ba9acPostConfirmation/src && tsc"
+    "amplify:202208231425amplifycba3ba9acPostConfirmation": "cd amplify/backend/function/202208231425amplifycba3ba9acPostConfirmation/src && tsc && cd -"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^3.4.1",
