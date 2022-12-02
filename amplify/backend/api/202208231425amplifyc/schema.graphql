@@ -1,4 +1,6 @@
-type TodoUserGroup @model @auth(rules: [{ allow: owner, ownerField: "owners" }]) {
+type TodoUserGroup
+  @model
+  @auth(rules: [{ allow: owner, ownerField: "owners" }, { allow: private, provider: iam }]) {
   id: ID!
   name: String
   owners: [String]

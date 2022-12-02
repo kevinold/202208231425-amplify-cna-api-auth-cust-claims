@@ -47,6 +47,7 @@ async function queryApi(endpoint, query, variables) {
   try {
     response = await fetch(request);
     body = await response.json();
+    console.log("body", body);
     if (body.errors) statusCode = 400;
   } catch (error) {
     statusCode = 500;
@@ -86,7 +87,7 @@ export const handler = async (event, context) => {
       inviteCode: "abc123",
     },
   };
-  const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
+  const result = await queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
   console.log("result", result);
   return event;
 };

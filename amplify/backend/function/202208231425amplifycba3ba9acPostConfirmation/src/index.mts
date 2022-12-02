@@ -98,7 +98,7 @@ export const handler = async (event, context) => {
     },
   };
 
-  const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
+  const result = await queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
   console.log("result", result);
   return event;
 };
