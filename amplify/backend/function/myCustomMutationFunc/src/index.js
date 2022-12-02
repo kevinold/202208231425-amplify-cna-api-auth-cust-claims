@@ -30,11 +30,12 @@ const query = /* GraphQL */ `
 `;
 
 const mutation = /* GraphQL */ `
-  mutation CreateTodoUserGroup($input) {
-    createTodoUserGroup(input: $input) {
+  mutation CreateTodoUserGroup(
+    $input: CreateTodoUserGroupInput!
+    $condition: ModelTodoUserGroupConditionInput
+  ) {
+    createTodoUserGroup(input: $input, condition: $condition) {
       id
-      name
-      createdAt
     }
   }
 `;
@@ -69,7 +70,7 @@ export const handler = async (event, context) => {
       host: endpoint.host,
     },
     hostname: endpoint.host,
-    body: JSON.stringify({ mutation, variables }),
+    body: JSON.stringify({ query: mutation, variables }),
     path: endpoint.pathname,
   });
 
@@ -96,7 +97,5 @@ export const handler = async (event, context) => {
     };
   }
 
-  return {
-    id: body.data.myCustomMutation.items[0].id,
-  };
+  return body.data.createTodoUserGroup.id;
 };
