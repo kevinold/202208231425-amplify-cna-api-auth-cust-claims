@@ -1,7 +1,21 @@
 {
+  "version": "1",
+  "region": "us-east-1",
+  "userPoolId": "us-east-1_7oB46XR2o",
+  "userName": "309a7be2-d527-4b85-8121-db635cdd6e78",
+  "callerContext": {
+    "awsSdkVersion": "aws-sdk-unknown-unknown",
+    "clientId": "3fsc32trftbb7v1pdqfbdi0t76"
+  },
+  "triggerSource": "PostConfirmation_ConfirmSignUp",
   "request": {
-    "userPoolId": "testID",
-    "userName": "testUser"
+    "userAttributes": {
+      "sub": "309a7be2-d527-4b85-8121-db635cdd6e78",
+      "email_verified": "true",
+      "cognito:user_status": "CONFIRMED",
+      "cognito:email_alias": "user@email.com",
+      "email": "user@email.com"
+    }
   },
   "response": {}
 }

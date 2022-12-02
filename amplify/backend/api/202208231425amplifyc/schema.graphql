@@ -1,11 +1,7 @@
-type TodoUserGroup
-  @model
-  @auth(rules: [{ allow: owner, ownerField: "owners" }, { allow: private, provider: iam }]) {
+type TodoUserGroup @model @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
   id: ID!
-  name: String
-  owners: [String]
-  createdBy: String # Remember who created it for UI; less restricting than "owner"
   inviteCode: String
+  joinedGroupId: String
 }
 
 type Todo

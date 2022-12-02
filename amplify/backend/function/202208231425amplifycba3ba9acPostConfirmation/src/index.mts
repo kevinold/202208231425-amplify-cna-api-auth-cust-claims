@@ -10,6 +10,7 @@ import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import { HttpRequest } from "@aws-sdk/protocol-http";
 import { SignatureV4 } from "@aws-sdk/signature-v4";
 import { default as fetch, Request } from "node-fetch";
+import { uuidv4 } from "uuid";
 
 const { Sha256 } = crypto;
 
@@ -67,7 +68,6 @@ async function queryApi(endpoint, query, variables) {
     };
   }
 
-  console.log("body", body);
   return {
     statusCode,
     body: JSON.stringify(body),
@@ -94,7 +94,8 @@ export const handler = async (event, context) => {
 
   const variables = {
     input: {
-      inviteCode: "abc123",
+      owner: event.request.userAttributes.sub,
+      inviteCode: uuidv4(),
     },
   };
 

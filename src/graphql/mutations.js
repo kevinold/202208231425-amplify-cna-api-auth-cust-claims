@@ -8,12 +8,11 @@ export const createTodoUserGroup = /* GraphQL */ `
   ) {
     createTodoUserGroup(input: $input, condition: $condition) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -24,12 +23,11 @@ export const updateTodoUserGroup = /* GraphQL */ `
   ) {
     updateTodoUserGroup(input: $input, condition: $condition) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -40,12 +38,11 @@ export const deleteTodoUserGroup = /* GraphQL */ `
   ) {
     deleteTodoUserGroup(input: $input, condition: $condition) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;

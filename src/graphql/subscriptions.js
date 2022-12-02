@@ -4,45 +4,45 @@
 export const onCreateTodoUserGroup = /* GraphQL */ `
   subscription OnCreateTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
+    $owner: String
   ) {
-    onCreateTodoUserGroup(filter: $filter) {
+    onCreateTodoUserGroup(filter: $filter, owner: $owner) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateTodoUserGroup = /* GraphQL */ `
   subscription OnUpdateTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
+    $owner: String
   ) {
-    onUpdateTodoUserGroup(filter: $filter) {
+    onUpdateTodoUserGroup(filter: $filter, owner: $owner) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteTodoUserGroup = /* GraphQL */ `
   subscription OnDeleteTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
+    $owner: String
   ) {
-    onDeleteTodoUserGroup(filter: $filter) {
+    onDeleteTodoUserGroup(filter: $filter, owner: $owner) {
       id
-      name
-      owners
-      createdBy
       inviteCode
+      joinedGroupId
       createdAt
       updatedAt
+      owner
     }
   }
 `;
