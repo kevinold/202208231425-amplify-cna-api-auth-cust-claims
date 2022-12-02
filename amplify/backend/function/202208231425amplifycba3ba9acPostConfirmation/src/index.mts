@@ -5,19 +5,70 @@
 	ENV
 	REGION
 Amplify Params - DO NOT EDIT */
-import { Amplify, API } from "aws-amplify";
+import crypto from "@aws-crypto/sha256-js";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
+import { HttpRequest } from "@aws-sdk/protocol-http";
+import { SignatureV4 } from "@aws-sdk/signature-v4";
+import { default as fetch, Request } from "node-fetch";
+
+const { Sha256 } = crypto;
 
 const GRAPHQL_ENDPOINT = process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT;
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
-// @ts-ignore
-//global.fetch = require("node-fetch");
-const myAppConfig = {
-  aws_appsync_graphqlEndpoint: GRAPHQL_ENDPOINT,
-  aws_appsync_region: AWS_REGION,
-  aws_appsync_authenticationType: "AWS_IAM",
-};
 
-Amplify.configure(myAppConfig);
+/**
+ * Helper function that sends a GraphQL query to the specified
+ * endpoint and returns the result.
+ *
+ * @param {string} endpoint The URL of the GraphQL API endpoint
+ * @param {string} query The GraphQL query to send
+ * @returns {Promise<any>} The result of the query
+ */
+async function queryApi(endpoint, query, variables) {
+  const signer = new SignatureV4({
+    credentials: defaultProvider(),
+    region: AWS_REGION,
+    service: "appsync",
+    sha256: Sha256,
+  });
+
+  const requestToBeSigned = new HttpRequest({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      host: new URL(endpoint).host,
+    },
+    body: JSON.stringify({ query, variables }),
+    path: new URL(endpoint).pathname,
+  });
+
+  const signed = await signer.sign(requestToBeSigned);
+  const request = new Request(endpoint, signed);
+
+  let statusCode = 200;
+  let body;
+  let response;
+
+  try {
+    response = await fetch(request);
+    body = await response.json();
+    if (body.errors) statusCode = 400;
+  } catch (error) {
+    statusCode = 500;
+    body = {
+      errors: [
+        {
+          message: error.message,
+        },
+      ],
+    };
+  }
+
+  return {
+    statusCode,
+    body: JSON.stringify(body),
+  };
+}
 
 const createTodoUserGroupMutation = `
   mutation CreateTodoUserGroup(
@@ -35,18 +86,14 @@ const createTodoUserGroupMutation = `
  */
 export const handler = async (event, context) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
-  console.log(`Context: ${JSON.stringify(context)}`);
+  console.log(`context: ${JSON.stringify(context)}`);
 
-  const results = await API.graphql({
-    query: createTodoUserGroupMutation,
-    variables: {
-      input: {
-        inviteCode: "abc123test",
-      },
+  const variables = {
+    input: {
+      inviteCode: "abc123",
     },
-  });
+  };
 
-  console.log("results", results);
-
+  const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
   return event;
 };
