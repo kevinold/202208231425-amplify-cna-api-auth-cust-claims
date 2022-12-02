@@ -32,7 +32,7 @@
         },
         "202208231425amplifycba3ba9acPostConfirmation": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPostConfirmation-7a334432354d4731764d-build.zip"
+          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPostConfirmation-6e46745665657a726d79-build.zip"
         }
       },
       "api": {
