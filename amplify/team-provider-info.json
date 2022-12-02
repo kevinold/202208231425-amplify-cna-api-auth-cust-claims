@@ -29,6 +29,10 @@
         "myCustomMutationFunc": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
           "s3Key": "amplify-builds/myCustomMutationFunc-6835534d5a6153636c6d-build.zip"
+        },
+        "202208231425amplifycba3ba9acPostConfirmation": {
+          "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
+          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPostConfirmation-3745564f6b6d69544d43-build.zip"
         }
       },
       "api": {

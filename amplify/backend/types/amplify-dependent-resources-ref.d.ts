@@ -1,8 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
         "202208231425amplifycba3ba9ac": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
@@ -39,6 +37,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+        },
+        "202208231425amplifycba3ba9acPostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     }
 }

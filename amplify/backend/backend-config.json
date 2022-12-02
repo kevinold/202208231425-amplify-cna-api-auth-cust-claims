@@ -12,6 +12,15 @@
             "Arn",
             "Name"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "202208231425amplifycba3ba9acPostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         }
       ],
       "customAuth": false,
@@ -130,6 +139,11 @@
           ]
         }
       ]
+    },
+    "202208231425amplifycba3ba9acPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

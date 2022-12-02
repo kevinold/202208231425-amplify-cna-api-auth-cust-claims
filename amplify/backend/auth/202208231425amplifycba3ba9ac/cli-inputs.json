@@ -1,8 +1,6 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "202208231425amplifycba3ba9ac_identitypool_ba3ba9ac",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "202208ba3ba9ac",
     "userPoolName": "202208231425amplifycba3ba9ac_userpool_ba3ba9ac",
     "autoVerifiedAttributes": [
@@ -35,7 +33,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "ba3ba9ac",
     "resourceName": "202208231425amplifycba3ba9ac",
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
@@ -66,22 +64,33 @@
           "Arn",
           "Name"
         ]
+      },
+      {
+        "category": "function",
+        "resourceName": "202208231425amplifycba3ba9acPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
       }
     ],
-    "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ],
       "PreTokenGeneration": [
         "alter-claims"
       ]
     },
     "hostedUI": false,
-    "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreTokenGeneration\",\n    \"lambdaFunctionName\": \"202208231425amplifycba3ba9acPreTokenGeneration\"\n  }\n]",
-    "permissions": []
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"202208231425amplifycba3ba9acPostConfirmation\"\n  },\n  {\n    \"triggerType\": \"PreTokenGeneration\",\n    \"lambdaFunctionName\": \"202208231425amplifycba3ba9acPreTokenGeneration\"\n  }\n]",
+    "permissions": [],
+    "authProviders": []
   }
-} 
+}

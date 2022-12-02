@@ -10,7 +10,8 @@
     "cy:open": "cypress open --e2e",
     "build:aws-exports-mjs": "cp src/aws-exports.js src/aws-exports.mjs",
     "pretest:provisionCognitoUsers": "npm run build:aws-exports-mjs",
-    "test:provisionCognitoUsers": "node --experimental-json-modules scripts/provisionCognitoUsers.mjs"
+    "test:provisionCognitoUsers": "node --experimental-json-modules scripts/provisionCognitoUsers.mjs",
+    "amplify:PostConf": "cd amplify/backend/function/202208231425amplifycba3ba9acPostConfirmation/src && tsc"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^3.4.1",
@@ -26,7 +27,8 @@
     "cypress": "^10.6.0",
     "dotenv": "^16.0.3",
     "eslint": "8.22.0",
-    "eslint-config-next": "12.2.5"
+    "eslint-config-next": "12.2.5",
+    "typescript": "^4.9.3"
   },
   "prettier": {
     "trailingComma": "es5",
