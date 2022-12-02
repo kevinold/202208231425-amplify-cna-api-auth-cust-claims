@@ -32,18 +32,21 @@ async function queryApi(endpoint, query, variables) {
     sha256: Sha256,
   });
 
+  const endpointUrl = new URL(endpoint);
+
   const requestToBeSigned = new HttpRequest({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      host: new URL(endpoint).host,
+      host: endpointUrl.host,
     },
+    hostname: endpointUrl.host,
     body: JSON.stringify({ query, variables }),
-    path: new URL(endpoint).pathname,
+    path: endpointUrl.pathname,
   });
 
   const signed = await signer.sign(requestToBeSigned);
-  const request = new Request(endpoint, signed);
+  const request = new Request(endpointUrl, signed);
 
   let statusCode = 200;
   let body;
@@ -95,5 +98,6 @@ export const handler = async (event, context) => {
   };
 
   const result = queryApi(GRAPHQL_ENDPOINT, createTodoUserGroupMutation, variables);
+  console.log("result", result);
   return event;
 };
