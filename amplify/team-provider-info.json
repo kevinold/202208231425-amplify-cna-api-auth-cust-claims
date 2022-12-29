@@ -20,7 +20,7 @@
       "function": {
         "202208231425amplifycba3ba9acPreTokenGeneration": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPreTokenGeneration-45776871775a574f6776-build.zip"
+          "s3Key": "amplify-builds/202208231425amplifycba3ba9acPreTokenGeneration-51777341705961767177-build.zip"
         },
         "todoUserGroupLambda": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
@@ -28,7 +28,7 @@
         },
         "myCustomMutationFunc": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/myCustomMutationFunc-6a6e39756d3565667678-build.zip"
+          "s3Key": "amplify-builds/myCustomMutationFunc-37474e69704a67494638-build.zip"
         },
         "202208231425amplifycba3ba9acPostConfirmation": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",

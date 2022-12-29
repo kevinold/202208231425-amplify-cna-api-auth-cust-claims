@@ -55,6 +55,10 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "api202208231425amplifycGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "api202208231425amplifycGraphQLAPIKeyOutput"
     }
   },
   "Conditions": {
@@ -116,6 +120,9 @@
             },
             "API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT": {
               "Ref": "api202208231425amplifycGraphQLAPIEndpointOutput"
+            },
+            "API_202208231425AMPLIFYC_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "api202208231425amplifycGraphQLAPIKeyOutput"
             }
           }
         },

@@ -13,5 +13,12 @@
   "triggerEventPath": "PreTokenGeneration.event.json",
   "roleName": "202208231425amplifycba3ba9acPreTokenGeneration",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {
+    "api": {
+      "202208231425amplifyc": [
+        "Query"
+      ]
+    }
+  }
 }
