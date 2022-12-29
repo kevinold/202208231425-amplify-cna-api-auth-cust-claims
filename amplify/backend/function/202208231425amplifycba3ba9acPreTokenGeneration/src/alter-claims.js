@@ -1,19 +1,76 @@
+/* Amplify Params - DO NOT EDIT
+	API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT
+	API_202208231425AMPLIFYC_GRAPHQLAPIIDOUTPUT
+	API_202208231425AMPLIFYC_GRAPHQLAPIKEYOUTPUT
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT */
+
+import { API } from "@aws-amplify/api";
+
+const config = {
+  aws_project_region: process.env.REGION,
+  // @ts-ignore
+  aws_appsync_graphqlEndpoint: process.env.API_202208231425AMPLIFYC_GRAPHQLAPIENDPOINTOUTPUT,
+  aws_appsync_region: process.env.REGION,
+  aws_appsync_authenticationType: "API_KEY",
+  aws_appsync_apiKey: process.env.API_202208231425AMPLIFYC_GRAPHQLAPIKEYOUTPUT,
+};
+
+API.configure(config);
+
+const getTodoUserGroupIdQuery = `query GetTodoUserGroupId($owner: String = "") {
+  listTodoUserGroups(filter: {owners: {contains: $owner}}) {
+    items {
+      id
+    }
+  }
+}`;
+
 /**
  * @type {import('@types/aws-lambda').PreTokenGenerationTriggerHandler}
  */
-
 exports.handler = async (event) => {
+  console.log(`EVENT: ${JSON.stringify(event)}`);
+  let todoUserGroupId;
+  const claimsToAddOrOverride = {};
+  const customGroups = [];
+
+  // get the user ID (Cognito sub)
+  const userSub = event.request.userAttributes.sub;
+
+  // get the user groups assigned through Cognito groups
+  const groups = event.request.groupConfiguration.groupsToOverride;
+
+  // Return early if user is admin, will have full auth access anyway
+  if (groups.includes("admin")) {
+    return event;
+  }
+
+  try {
+    const res = await API.graphql({
+      query: getTodoUserGroupIdQuery,
+      variables: { owner: userSub },
+    });
+
+    todoUserGroupId = res.data.listTodoUserGroups?.items[0]["id"];
+    claimsToAddOrOverride.todoUserGroup = todoUserGroupId;
+  } catch (error) {
+    console.log(error);
+    throw new Error(JSON.stringify(error, null, 2));
+  }
+
+  if (!todoUserGroupId) return event;
+
   event.response = {
     claimsOverrideDetails: {
       groupOverrideDetails: {
-        //groupsToOverride: ["kevinold@gmail.com-group"],
+        groupsToOverride: [...groups, ...customGroups],
       },
-      claimsToAddOrOverride: {
-        todoUserGroup: "kevinold@gmail.com-group",
-      },
+      claimsToAddOrOverride,
     },
   };
-  // Return to Amazon Cognito
+
   return event;
 };
 
