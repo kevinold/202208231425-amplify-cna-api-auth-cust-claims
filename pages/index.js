@@ -82,6 +82,11 @@ async function onUpdate(currentItem, user) {
 function App({ signOut, user }) {
   const [todos, setTodos] = useState([]);
 
+  // Get todoUserGroup from idToken if needed client side.
+  // via https://www.xiegerts.com/post/amplify-ui-auth-nextjs/#group-based-access-with-cognito-groups
+  // const todoUserGroup = user?.getSignInUserSession()?.getIdToken()?.payload["todoUserGroup"];
+  // console.log({ todoUserGroup });
+
   useEffect(() => {
     onQuery(setTodos);
   }, []);
