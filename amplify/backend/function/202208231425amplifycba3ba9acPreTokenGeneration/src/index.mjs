@@ -30,7 +30,7 @@ const getTodoUserGroupIdQuery = `query GetTodoUserGroupId($owner: String = "") {
 /**
  * @type {import('@types/aws-lambda').PreTokenGenerationTriggerHandler}
  */
-exports.handler = async (event) => {
+export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
   let todoUserGroupId;
   const claimsToAddOrOverride = {};
@@ -53,8 +53,10 @@ exports.handler = async (event) => {
       variables: { owner: userSub },
     });
 
-    todoUserGroupId = res.data.listTodoUserGroups?.items[0]["id"];
-    claimsToAddOrOverride.todoUserGroup = todoUserGroupId;
+    if (res.data.listTodoUserGroups?.items) {
+      todoUserGroupId = res.data.listTodoUserGroups?.items[0]["id"];
+      claimsToAddOrOverride.todoUserGroup = todoUserGroupId;
+    }
   } catch (error) {
     console.log(error);
     throw new Error(JSON.stringify(error, null, 2));
