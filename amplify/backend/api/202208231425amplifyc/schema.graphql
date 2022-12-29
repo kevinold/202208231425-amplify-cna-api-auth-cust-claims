@@ -1,8 +1,16 @@
-type TodoUserGroup @model @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
+type TodoUserGroup
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "owners" }
+      # https://docs.amplify.aws/guides/functions/graphql-from-lambda/q/platform/js/#iam-authorization
+      { allow: private, provider: iam }
+      { allow: public }
+    ]
+  ) {
   id: ID!
-  owner: String!
-  inviteCode: ID!
-  joinedGroupId: String
+  owners: [String!]
+  inviteCode: String! @index(name: "byInviteCode", queryField: "todoUserGroupByInviteCode")
 }
 
 type Todo
@@ -13,7 +21,7 @@ type Todo
   id: ID!
   name: String!
   description: String
-  group: String # Single group
+  group: String
 }
 
 type Mutation {

@@ -4,13 +4,11 @@
 export const onCreateTodoUserGroup = /* GraphQL */ `
   subscription OnCreateTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
-    $owner: String
   ) {
-    onCreateTodoUserGroup(filter: $filter, owner: $owner) {
+    onCreateTodoUserGroup(filter: $filter) {
       id
-      owner
+      owners
       inviteCode
-      joinedGroupId
       createdAt
       updatedAt
     }
@@ -19,13 +17,11 @@ export const onCreateTodoUserGroup = /* GraphQL */ `
 export const onUpdateTodoUserGroup = /* GraphQL */ `
   subscription OnUpdateTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
-    $owner: String
   ) {
-    onUpdateTodoUserGroup(filter: $filter, owner: $owner) {
+    onUpdateTodoUserGroup(filter: $filter) {
       id
-      owner
+      owners
       inviteCode
-      joinedGroupId
       createdAt
       updatedAt
     }
@@ -34,13 +30,11 @@ export const onUpdateTodoUserGroup = /* GraphQL */ `
 export const onDeleteTodoUserGroup = /* GraphQL */ `
   subscription OnDeleteTodoUserGroup(
     $filter: ModelSubscriptionTodoUserGroupFilterInput
-    $owner: String
   ) {
-    onDeleteTodoUserGroup(filter: $filter, owner: $owner) {
+    onDeleteTodoUserGroup(filter: $filter) {
       id
-      owner
+      owners
       inviteCode
-      joinedGroupId
       createdAt
       updatedAt
     }

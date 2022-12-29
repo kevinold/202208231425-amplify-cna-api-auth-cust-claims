@@ -5,9 +5,8 @@ export const getTodoUserGroup = /* GraphQL */ `
   query GetTodoUserGroup($id: ID!) {
     getTodoUserGroup(id: $id) {
       id
-      owner
+      owners
       inviteCode
-      joinedGroupId
       createdAt
       updatedAt
     }
@@ -22,9 +21,34 @@ export const listTodoUserGroups = /* GraphQL */ `
     listTodoUserGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        owner
+        owners
         inviteCode
-        joinedGroupId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const todoUserGroupByInviteCode = /* GraphQL */ `
+  query TodoUserGroupByInviteCode(
+    $inviteCode: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelTodoUserGroupFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    todoUserGroupByInviteCode(
+      inviteCode: $inviteCode
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        owners
+        inviteCode
         createdAt
         updatedAt
       }
