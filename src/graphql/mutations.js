@@ -91,8 +91,8 @@ export const deleteTodo = /* GraphQL */ `
     }
   }
 `;
-export const myCustomMutation = /* GraphQL */ `
-  mutation MyCustomMutation($args: String) {
-    myCustomMutation(args: $args)
+export const joinTodoUserGroup = /* GraphQL */ `
+  mutation JoinTodoUserGroup($input: JoinTodoUserGroupInput) {
+    joinTodoUserGroup(input: $input)
   }
 `;

@@ -82,20 +82,6 @@
           ]
         }
       }
-    },
-    "todoUserGroup": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "todoUserGroupLambda",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
     }
   },
   "function": {
@@ -115,29 +101,7 @@
         }
       ]
     },
-    "todoUserGroupLambda": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "202208231425amplifycba3ba9ac",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "api",
-          "resourceName": "202208231425amplifyc",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
-          ]
-        }
-      ]
-    },
-    "myCustomMutationFunc": {
+    "202208231425amplifycba3ba9acPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
@@ -153,7 +117,7 @@
         }
       ]
     },
-    "202208231425amplifycba3ba9acPostConfirmation": {
+    "joinTodoUserGroupFunc": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

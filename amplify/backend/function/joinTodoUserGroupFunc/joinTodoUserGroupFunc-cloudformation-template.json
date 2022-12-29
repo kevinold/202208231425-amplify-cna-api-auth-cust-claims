@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.4.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.5.2\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "myCustomMutationFunc",
+            "joinTodoUserGroupFunc",
             {
               "Fn::Join": [
                 "",
                 [
-                  "myCustomMutationFunc",
+                  "joinTodoUserGroupFunc",
                   "-",
                   {
                     "Ref": "env"
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "202208231425amplifycLambdaRole1c0cecc7",
+            "202208231425amplifycLambdaRole4a5ee5dc",
             {
               "Fn::Join": [
                 "",
                 [
-                  "202208231425amplifycLambdaRole1c0cecc7",
+                  "202208231425amplifycLambdaRole4a5ee5dc",
                   "-",
                   {
                     "Ref": "env"

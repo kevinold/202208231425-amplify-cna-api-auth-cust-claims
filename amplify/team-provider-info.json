@@ -22,22 +22,17 @@
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
           "s3Key": "amplify-builds/202208231425amplifycba3ba9acPreTokenGeneration-344b783232496a665646-build.zip"
         },
-        "todoUserGroupLambda": {
-          "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/todoUserGroupLambda-6d447263734a55357974-build.zip"
-        },
-        "myCustomMutationFunc": {
-          "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/myCustomMutationFunc-37474e69704a67494638-build.zip"
-        },
         "202208231425amplifycba3ba9acPostConfirmation": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
           "s3Key": "amplify-builds/202208231425amplifycba3ba9acPostConfirmation-4a5469745852766d5062-build.zip"
+        },
+        "joinTodoUserGroupFunc": {
+          "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
+          "s3Key": "amplify-builds/joinTodoUserGroupFunc-4f2f4c37625466685467-build.zip"
         }
       },
       "api": {
-        "202208231425amplifyc": {},
-        "todoUserGroup": {}
+        "202208231425amplifyc": {}
       }
     }
   }

@@ -24,8 +24,13 @@ type Todo
   group: String
 }
 
+input JoinTodoUserGroupInput {
+  userId: ID!
+  inviteCode: String!
+}
+
 type Mutation {
-  myCustomMutation(args: String): String
-    @function(name: "myCustomMutationFunc-${env}")
-    @auth(rules: [{ allow: private, provider: iam }])
+  joinTodoUserGroup(input: JoinTodoUserGroupInput): String
+    @function(name: "joinTodoUserGroupFunc-${env}")
+    @auth(rules: [{ allow: private }])
 }
