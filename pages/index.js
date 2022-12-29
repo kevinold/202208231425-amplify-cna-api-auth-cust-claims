@@ -11,20 +11,10 @@ import {
   withAuthenticator,
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { Amplify, API, Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { createTodo, deleteTodo, updateTodo } from "../src/graphql/mutations";
 import { listTodos } from "../src/graphql/queries";
-
-import awsconfig from "../src/aws-exports";
-Amplify.configure({
-  API: {
-    graphql_headers: async () => ({
-      Authorization: (await Auth.currentSession()).getIdToken().getJwtToken(),
-    }),
-  },
-  ...awsconfig,
-});
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
