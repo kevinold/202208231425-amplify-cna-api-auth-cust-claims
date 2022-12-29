@@ -53,7 +53,7 @@ export const handler = async (event) => {
       variables: { owner: userSub },
     });
 
-    if (res.data.listTodoUserGroups?.items) {
+    if (res.data.listTodoUserGroups?.items && res.data.listTodoUserGroups.items[0]) {
       todoUserGroupId = res.data.listTodoUserGroups?.items[0]["id"];
       claimsToAddOrOverride.todoUserGroup = todoUserGroupId;
     }
