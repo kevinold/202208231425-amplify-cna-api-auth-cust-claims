@@ -32,7 +32,6 @@ const getTodoUserGroupIdQuery = `query GetTodoUserGroupId($owner: String = "") {
  */
 export const handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
-  let todoUserGroupId;
   const claimsToAddOrOverride = {};
   const customGroups = [];
 
@@ -47,6 +46,9 @@ export const handler = async (event) => {
     return event;
   }
 
+  let ownerGroup;
+  let joinedGroup;
+
   try {
     const res = await API.graphql({
       query: getTodoUserGroupIdQuery,
@@ -54,15 +56,22 @@ export const handler = async (event) => {
     });
 
     if (res.data.listTodoUserGroups?.items && res.data.listTodoUserGroups.items[0]) {
-      todoUserGroupId = res.data.listTodoUserGroups?.items[0]["id"];
-      claimsToAddOrOverride.todoUserGroup = todoUserGroupId;
+      res.data.listTodoUserGroups?.items.forEach((item) => {
+        if (item.owners.length === 1) {
+          ownerGroup = item.id;
+        }
+        // determine the group the user joined by finding the group with multiple users
+        if (item.owners.length === 2) {
+          joinedGroup = item.id;
+        }
+      });
+
+      claimsToAddOrOverride.todoUserGroup = joinedGroup || ownerGroup;
     }
   } catch (error) {
     console.log(error);
     throw new Error(JSON.stringify(error, null, 2));
   }
-
-  if (!todoUserGroupId) return event;
 
   event.response = {
     claimsOverrideDetails: {
