@@ -28,7 +28,7 @@
         },
         "joinTodoUserGroupFunc": {
           "deploymentBucketName": "amplify-202208231425amplifyc-dev-142544-deployment",
-          "s3Key": "amplify-builds/joinTodoUserGroupFunc-38565a35382b522b3837-build.zip"
+          "s3Key": "amplify-builds/joinTodoUserGroupFunc-6950394b486231384b32-build.zip"
         }
       },
       "api": {

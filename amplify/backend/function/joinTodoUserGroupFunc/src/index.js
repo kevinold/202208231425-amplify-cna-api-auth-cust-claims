@@ -64,7 +64,9 @@ export const handler = async (event) => {
     throw new Error(JSON.stringify(error, null, 2));
   }
 
-  if (!todoUserGroup) return "Invalid Invite Code or group is full";
+  if (todoUserGroup.owners.length === 2) {
+    return "Invalid Invite Code or group is full";
+  }
 
   try {
     console.log({ todoUserGroup });
