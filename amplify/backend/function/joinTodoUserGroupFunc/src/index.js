@@ -24,6 +24,7 @@ const todoUserGroupByInviteCode = /* GraphQL */ `
     todoUserGroupByInviteCode(inviteCode: $inviteCode) {
       items {
         id
+        owners
       }
     }
   }
@@ -66,6 +67,7 @@ export const handler = async (event) => {
   if (!todoUserGroup) return "Invalid Invite Code or group is full";
 
   try {
+    console.log({ todoUserGroup });
     const res = await API.graphql({
       query: updateTodoUserGroup,
       variables: {
